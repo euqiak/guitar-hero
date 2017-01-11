@@ -3,7 +3,7 @@ from PPlay.gameimage import *
 from PPlay.sprite import *
 from PPlay.sound import *
 janela=Window(800, 618)
-
+from PPlay.keyboard import*
 
 def preencher_notas():
     vetor_notas=[0,0,0,0,0]
@@ -11,6 +11,13 @@ def preencher_notas():
         notas=Sprite('botoes.png')
         vetor_notas[x]=notas
     return vetor_notas
+
+def guitarra():
+    vetor_guitarra=[0,0,0,0]
+    for x in range(4):
+        notas=Sprite('botoes.png')
+        vetor_guitarra[x]=notas
+    return vetor_guitarra
 
 def mover_notas(a,s,d,f,g): #as letras são as velocidades da nota de acordo com a música
         m[0].move_y(a)
@@ -33,8 +40,21 @@ def posicionar_notas(): #aqui eu tenho que ver direito como a guitarra e as nota
             m[x].set_position(janela.width/2,0)
             coord_y=0
 
+def posicionar_notasguitarra():
+    g[0].set_position(janela.width/2,500)
+    g[1].set_position(janela.width/2+g[0].width+10,500)
+    g[2].set_position(janela.width/2+g[0].width+90,500)
+    g[3].set_position(janela.width/2+g[0].width+160,500)
+
+def verificação(x,y,a): #essa é a função que vai verificar se as notas estão uma em cima da outra e se a tecla dela foi pressionada, mas tá dando erro AttributeError: 'Sprite' object has no attribute 'is_over_object'
+    if m[x].is_over_object(g[y]) and key_pressed('a'):
+        pontuação+=10
+
+pontuação=0
 coord_y=0
 m=preencher_notas()
+g=guitarra()
+posicionar_notasguitarra()
 posicionar_notas()
 while True:
     janela.set_background_color((255,255,255))
@@ -42,15 +62,21 @@ while True:
     m[1].draw()
     m[2].draw()
     m[3].draw()
+    g[0].draw()
+    g[1].draw()
+    g[2].draw()
+    g[3].draw()
     coord_y+=0.1
     m[0].set_position(janela.width/2,coord_y)
     m[1].set_position(janela.width/2+m[0].width+10,coord_y)
     m[2].set_position(janela.width/2+m[0].width+90,coord_y)
     m[3].set_position(janela.width/2+m[0].width+160,coord_y)
+    verificação(0,0,'a')
     for x in range(4):
         if coord_y>janela.height:
             m[x].set_position(janela.width/2,0)
             coord_y=0
+
 
 
     janela.update()
