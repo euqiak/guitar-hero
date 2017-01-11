@@ -1,3 +1,6 @@
+#tá tudo funcionando, só falta mesmo fazer a verificação da colisão. Depois disso só vamos precisar colocar a música e definir as velocidades, preciso também salvar as notas como png transparente
+
+
 from PPlay.window import*
 from PPlay.gameimage import *
 from PPlay.sprite import *
