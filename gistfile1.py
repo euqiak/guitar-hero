@@ -3,7 +3,7 @@ from PPlay.gameimage import *
 from PPlay.sprite import *
 from PPlay.sound import *
 import time
-janela=Window(800, 618)
+#janela = Window(800, 618)
 
 
 def preencher_notas():
@@ -18,19 +18,13 @@ def mover_notas(a,s,d,f): #as letras são as velocidades da nota de acordo com a
         m[1].move_y(s)
         m[2].move_y(d)
         m[3].move_y(f)
-        for x in range(3):
-            if m[x].y>janela.height-m[x].height:
-                m[x].set_position()#voltam pra posição inicial
+        for x in range(len(m)):
+            if m[x].y > janela.height-m[x].height:
+                m[x].set_position(m.x, 0)#voltam pra posição inicial
 
 
-#Preenchimento e posicionamento das notas, eu coloquei as coordenadas que você usou no seu código, mas elas não bateram com a guitarra
-m=preencher_notas()
-m[0].set_position(m[0].width+35/2, 0)
-m[1].set_position(m[0].width+105 / 2, 0)
-m[2].set_position(m[0].width+173  / 2, 0)
-m[3].set_position(m[0].width+232  / 2, 0)
 
-janela=Window(800, 600)
+janela = Window(800, 600)
 janela.set_background_color((255,255,255))
 mouse = Window.get_mouse()
 keys = Window.get_keyboard()
@@ -60,19 +54,27 @@ red = Sprite('red.png')
 yellow = Sprite('yellow.png')
 blue = Sprite('blue.png')
 vector = [green, red, yellow, blue]
-sprite_vector = 10 * [vector]#Associei tudo num vetor, era assim q tinha q fazer pra usar varios sprites duma vez né?
-print(len(sprite_vector))
 fret = Sprite('neck.jpg')
 lvl1_song = Sound('reptilia.ogg')#Segundo o aviso do esteban na biblioteca do PPlay, o som tem q estar nesse formato
 
-###posicionando essa bosta toda###
+#Preenchimento e posicionamento das notas, eu coloquei as coordenadas que você usou no seu código, mas elas não bateram com a guitarra
+m=preencher_notas()
+m[0].set_position(fret.x + 35 - m[0].width / 2, 0)
+m[1].set_position(fret.x + 105 - m[0].width / 2, 0)
+m[2].set_position(fret.x + 173 - m[0].width / 2, 0)
+m[3].set_position(fret.x + 232 - m[0].width / 2, 0)
+
+'''sprite_vector = 10 * [vector]#Associei tudo num vetor, era assim q tinha q fazer pra usar varios sprites duma vez né?
+print(len(sprite_vector))'''
+
+'''posicionando essa bosta toda
 fret.set_position(300, 0)
 for i in range(len(sprite_vector)):
     sprite_vector[i][0].set_position(fret.x + 35 - green.width / 2, 0)
     sprite_vector[i][1].set_position(fret.x + 105 - green.width / 2, 0)
     sprite_vector[i][2].set_position(fret.x + 173 - green.width / 2, 0)
     sprite_vector[i][3].set_position(fret.x + 232 - green.width / 2, 0)
-
+'''
 while (True):
     #começando o jogo
     if mouse.is_over_object(comecar) and mouse.is_button_pressed(1):
@@ -117,10 +119,10 @@ while (True):
                     i = 0
             janela.update()
         #Reposicionando essa bosta toda, mas acho q essa parte pode ser desnecessaria agora
-        green.set_position(fret.x + 35 - green.width / 2, 0)
+        '''green.set_position(fret.x + 35 - green.width / 2, 0)
         red.set_position(fret.x + 105 - green.width / 2, 0)
         yellow.set_position(fret.x + 173 - green.width / 2, 0)
-        blue.set_position(fret.x + 232 - green.width / 2, 0)
+        blue.set_position(fret.x + 232 - green.width / 2, 0)'''
 
         for x in range(4):
             m[x].draw()
