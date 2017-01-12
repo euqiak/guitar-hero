@@ -34,20 +34,20 @@ def mover_notas(a,s,d,f,g): #as letras são as velocidades da nota de acordo com
 
 def posicionar_notas(): #aqui eu tenho que ver direito como a guitarra e as notas dela vão ficar pra eu posicionar as notas que vão cair
     global coord_y
-    m[0].set_position(janela.width/2,coord_y)
-    m[1].set_position(janela.width/2+m[0].width+10,coord_y)
-    m[2].set_position(janela.width/2+m[0].width+90,coord_y)
-    m[3].set_position(janela.width/2+m[0].width+160,coord_y)
+    m[0].set_position(250,coord_y)
+    m[1].set_position(250,coord_y)
+    m[2].set_position(250,coord_y)
+    m[3].set_position(250,coord_y)
     for x in range (4):
         if m[x].height>janela.height-m[x].height:
-            m[x].set_position(janela.width/2,0)
+            m[x].set_position(250,0)
             coord_y=0
 
 def posicionar_notasguitarra():
-    g[0].set_position(janela.width/2,500)
-    g[1].set_position(janela.width/2+g[0].width+10,500)
-    g[2].set_position(janela.width/2+g[0].width+90,500)
-    g[3].set_position(janela.width/2+g[0].width+160,500)
+    g[0].set_position(250,500)
+    g[1].set_position(250+g[0].width+10,500)
+    g[2].set_position(250+g[0].width+90,500)
+    g[3].set_position(250+g[0].width+160,500)
 
 def verificação(a):
     global pontuação
@@ -78,11 +78,14 @@ while True:
     coord_y+=1
 
     verificação('a')
+    verificação('s')
+    verificação('d')
+    verificação('f')
 
-    m[0].set_position(janela.width/2,coord_y)
-    m[1].set_position(janela.width/2+m[0].width+10,coord_y)
-    m[2].set_position(janela.width/2+m[0].width+90,coord_y)
-    m[3].set_position(janela.width/2+m[0].width+160,coord_y)
+    m[0].set_position(250,coord_y)
+    m[1].set_position(250+m[0].width+10,coord_y)
+    m[2].set_position(250+m[0].width+90,coord_y)
+    m[3].set_position(250+m[0].width+160,coord_y)
     for x in range(4):
         if coord_y>janela.height:
             m[x].set_position(janela.width/2,0)
