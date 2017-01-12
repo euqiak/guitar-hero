@@ -1,12 +1,12 @@
-#tá tudo funcionando, só falta mesmo fazer a verificação da colisão. Depois disso só vamos precisar colocar a música e definir as velocidades, preciso também salvar as notas como png transparente
-
-
 from PPlay.window import*
 from PPlay.gameimage import *
 from PPlay.sprite import *
 from PPlay.sound import *
 janela=Window(800, 618)
 from PPlay.keyboard import*
+from PPlay.collision import *
+teclado = Window.get_keyboard()
+
 
 def preencher_notas():
     vetor_notas=[0,0,0,0,0]
@@ -49,11 +49,16 @@ def posicionar_notasguitarra():
     g[2].set_position(janela.width/2+g[0].width+90,500)
     g[3].set_position(janela.width/2+g[0].width+160,500)
 
-def verificação(x,y,a): #essa é a função que vai verificar se as notas estão uma em cima da outra e se a tecla dela foi pressionada, mas tá dando erro AttributeError: 'Sprite' object has no attribute 'is_over_object'
-    if m[x].is_over_object(g[y]) and key_pressed('a'):
-        pontuação+=10
+def verificação(a):
+    global pontuação
+    for x in range(4):
+        for y in range(4):
+            if(m[x].collided(g[y]))and teclado.key_pressed(a):
+                pontuação+=10
 
+                print('oi')
 pontuação=0
+ptc=str(pontuação)
 coord_y=0
 m=preencher_notas()
 g=guitarra()
@@ -61,6 +66,7 @@ posicionar_notasguitarra()
 posicionar_notas()
 while True:
     janela.set_background_color((255,255,255))
+    janela.draw_text(str(pontuação), janela.width/2 + 50, 50, 50, (0,0,0,), "Arial", True, False)
     m[0].draw()
     m[1].draw()
     m[2].draw()
@@ -69,12 +75,14 @@ while True:
     g[1].draw()
     g[2].draw()
     g[3].draw()
-    coord_y+=0.1
+    coord_y+=1
+
+    verificação('a')
+
     m[0].set_position(janela.width/2,coord_y)
     m[1].set_position(janela.width/2+m[0].width+10,coord_y)
     m[2].set_position(janela.width/2+m[0].width+90,coord_y)
     m[3].set_position(janela.width/2+m[0].width+160,coord_y)
-    verificação(0,0,'a')
     for x in range(4):
         if coord_y>janela.height:
             m[x].set_position(janela.width/2,0)
